@@ -1,6 +1,5 @@
 package com.apps.sfaapp.view.repository
 
-import androidx.lifecycle.MutableLiveData
 import com.apps.sfaapp.model.LoginModel
 import com.apps.sfaapp.view.api.RetrofitClient
 import kotlinx.coroutines.Dispatchers

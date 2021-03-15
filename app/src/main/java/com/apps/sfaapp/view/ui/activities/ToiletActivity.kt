@@ -32,6 +32,11 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     private var scannedCode: String? = null
     var circleName: String? = null
     var wardName: String? = null
+    var roadName: String? = null
+    var wardId: String? = null
+    var circleId: String? = null
+    var roadId: String? = null
+    var zoneId: String? = null
     var cleanStatus: String? = null
 
     private var arrayList: ArrayList<CheckListModel.CheckList> = ArrayList()
@@ -57,6 +62,11 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         scannedCode = intent.getStringExtra("scannedCode")
         circleName = intent.getStringExtra("circle")
         wardName = intent.getStringExtra("ward")
+        roadName = intent.getStringExtra("road")
+        wardId = intent.getStringExtra("ward_id")
+        circleId = intent.getStringExtra("circle_id")
+        roadId = intent.getStringExtra("road_id")
+        zoneId = intent.getStringExtra("zone_id")
 
 
         binding.etToilet.setText(toiletLocation)
@@ -123,10 +133,10 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         alertDialogBuilder.setMessage(msg)
         alertDialogBuilder.setPositiveButton("Ok",
-            DialogInterface.OnClickListener { arg0, arg1 ->
-                arg0.dismiss()
-                resetForm()
-            })
+                DialogInterface.OnClickListener { arg0, arg1 ->
+                    arg0.dismiss()
+                    resetForm()
+                })
 
         val alertDialog: AlertDialog = alertDialogBuilder.create()
         alertDialog.show()
@@ -146,31 +156,35 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     private fun saveCleanData() {
         showDialog()
         submitCleanViewModel.saveDataClean(
-            Constants.ACCESS_KEY,
-            getPreferLogin(SharedPreferConstant.login_status).toString(),
-            getPreferLogin(SharedPreferConstant.jawan_id).toString(),
-            toiletId.toString(),
-            getPreferLogin(
-                SharedPreferConstant.ulbid
-            ).toString(),
-            getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
-            getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
-            scannedCode.toString(),
-            dateTime,
-            cleanStatus.toString(),
-            getPreferLogin(SharedPreferConstant.zone_id).toString(),
-            selectedIdsArray
+                Constants.ACCESS_KEY,
+                getPreferLogin(SharedPreferConstant.login_status).toString(),
+                getPreferLogin(SharedPreferConstant.jawan_id).toString(),
+                toiletId.toString(),
+                getPreferLogin(
+                        SharedPreferConstant.ulbid
+                ).toString(),
+                getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
+                getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
+                scannedCode.toString(),
+                dateTime,
+                cleanStatus.toString(),
+                getPreferLogin(SharedPreferConstant.zone_id).toString(),
+                selectedIdsArray,
+                wardId.toString(),
+                roadId.toString(),
+                zoneId.toString(),
+                circleId.toString()
         )
     }
 
     private fun validation(): Boolean {
         if (binding.radioYes.isChecked || binding.radioNo.isChecked) {
             //if (binding.radioNo.isChecked) {
-                if (selectedIdsArray.size == 0) {
-                    showToastMessage("Please select check box")
-                    return false
-                }
-           // }
+            if (selectedIdsArray.size == 0) {
+                showToastMessage("Please select check box")
+                return false
+            }
+            // }
 
         } else {
             showToastMessage("Please select Toilet cleaned")
@@ -185,8 +199,8 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     private fun getCheckList() {
         showDialog()
         checkListViewModel.getCheckListData(
-            Constants.ACCESS_KEY,
-            getPreferLogin(SharedPreferConstant.login_status).toString()
+                Constants.ACCESS_KEY,
+                getPreferLogin(SharedPreferConstant.login_status).toString()
         )
     }
 

@@ -23,6 +23,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.apps.sfaapp.databinding.FragmentHomeBinding
 import com.apps.sfaapp.view.base.*
+import com.apps.sfaapp.view.ui.activities.CommercialActivity
 import com.apps.sfaapp.view.ui.activities.MainActivity
 import com.apps.sfaapp.view.ui.activities.ScannerActivity
 import com.apps.sfaapp.view.ui.activities.ToiletActivity
@@ -69,8 +70,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
 
@@ -85,7 +86,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
         //getLastLocation();
         mFusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(activity as MainActivity)
+                LocationServices.getFusedLocationProviderClient(activity as MainActivity)
         mSettingsClient = LocationServices.getSettingsClient(activity as MainActivity)
 
         // Kick off the process of building the LocationCallback, LocationRequest, and
@@ -145,38 +146,38 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             if (it.status == 200) {
                 if (it.cat_type == "Toilet") {
 
-
-                    // (activity as MainActivity).onItemClickToilet( it.bin_id,it.bin_location,it.supervisorName,it.supervisorMobile,it.ScannerCode,it.circelName,it.wardName)
-
-                    /*  val toiletFragment = ToiletFragment()
-                       val bundle = Bundle()
-                       bundle.putString("toiletId", it.bin_id)
-                       bundle.putString("toiletLocation", it.bin_location)
-                       bundle.putString("supervisorName", it.supervisorName)
-                       bundle.putString("supervisorMobile", it.supervisorMobile)
-                       bundle.putString("scannedCode", it.ScannerCode)
-                       bundle.putString("circle", it.circelName)
-                       bundle.putString("ward", it.wardName)
-                       toiletFragment.arguments = bundle
-                       val beginTransaction: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
-                       beginTransaction.replace(R.id.frame_layout, toiletFragment)
-                       beginTransaction.addToBackStack(null)
-                       beginTransaction.commitAllowingStateLoss()*/
-
                     startActivity(
-                        Intent((activity as MainActivity), ToiletActivity::class.java)
-                            .putExtra("toiletId", it.bin_id)
-                            .putExtra("toiletLocation", it.bin_location)
-                            .putExtra("supervisorName", it.supervisorName)
-                            .putExtra("supervisorMobile", it.supervisorMobile)
-                            .putExtra("scannedCode", it.ScannerCode)
-                            .putExtra("circle", it.circelName)
-                            .putExtra("ward", it.wardName)
+                            Intent((activity as MainActivity), ToiletActivity::class.java)
+                                    .putExtra("toiletId", it.bin_id)
+                                    .putExtra("toiletLocation", it.bin_location)
+                                    .putExtra("supervisorName", it.supervisorName)
+                                    .putExtra("supervisorMobile", it.supervisorMobile)
+                                    .putExtra("scannedCode", it.ScannerCode)
+                                    .putExtra("circle", it.circelName)
+                                    .putExtra("ward", it.wardName)
+                                    .putExtra("road", it.roadName)
+                                    .putExtra("ward_id", it.ward_id)
+                                    .putExtra("circle_id", it.circle_id)
+                                    .putExtra("road_id", it.road_id)
+                                    .putExtra("zone_id", it.zone_id)
                     )
 
 
                 } else {
-
+                    startActivity(
+                            Intent((activity as MainActivity), CommercialActivity::class.java)
+                                    .putExtra("toiletId", it.bin_id)
+                                    .putExtra("toiletLocation", it.bin_location)
+                                    .putExtra("supervisorName", it.supervisorName)
+                                    .putExtra("supervisorMobile", it.supervisorMobile)
+                                    .putExtra("scannedCode", it.ScannerCode)
+                                    .putExtra("circle", it.circelName)
+                                    .putExtra("ward", it.wardName)
+                                    .putExtra("road", it.roadName)
+                                    .putExtra("ward_id", it.ward_id)
+                                    .putExtra("circle_id", it.circle_id)
+                                    .putExtra("road_id", it.road_id)
+                                    .putExtra("zone_id", it.zone_id))
                 }
 
                 dismissDialog()
@@ -204,10 +205,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun getDashBoardData() {
         showDialogs()
         dashBoardViewModel.getDashBoard(
-            Constants.ACCESS_KEY,
-            getPreferLogin(SharedPreferConstant.login_status).toString(),
-            getPreferLogin(SharedPreferConstant.jawan_id).toString(),
-            date.toString()
+                Constants.ACCESS_KEY,
+                getPreferLogin(SharedPreferConstant.login_status).toString(),
+                getPreferLogin(SharedPreferConstant.jawan_id).toString(),
+                date.toString()
         )
     }
 
@@ -223,9 +224,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         }
 
         binsCustomViewAnimation = BinsCustomViewAnimation(
-            binsCustomViewClass, newFloat / 100 * 360,
-            binsCleaned,
-            binsAssigned
+                binsCustomViewClass, newFloat / 100 * 360,
+                binsCleaned,
+                binsAssigned
         )
         binsCustomViewAnimation.duration = 5000
         binsCustomViewClass.startAnimation(binsCustomViewAnimation)
@@ -239,9 +240,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var toiletCustomViewAnimation: ToiletCustomViewAnimation
 
     private fun setToiletCount(
-        toiletsAssigned: String,
-        toiletsCleaned: String,
-        toiletspercent: String
+            toiletsAssigned: String,
+            toiletsCleaned: String,
+            toiletspercent: String
     ) {
         val newFloat: Float = java.lang.String.valueOf(toiletspercent).toFloat()
 
@@ -254,10 +255,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
 
         toiletCustomViewAnimation = ToiletCustomViewAnimation(
-            customViewClass,
-            newFloat / 100 * 360,
-            toiletsCleaned,
-            toiletsAssigned
+                customViewClass,
+                newFloat / 100 * 360,
+                toiletsCleaned,
+                toiletsAssigned
         )
         toiletCustomViewAnimation.duration = 5000
         customViewClass.startAnimation(toiletCustomViewAnimation)
@@ -271,23 +272,23 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private fun checkPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
-            activity as MainActivity,
-            Manifest.permission.CAMERA
+                activity as MainActivity,
+                Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
-            activity as MainActivity,
-            arrayOf(Manifest.permission.CAMERA),
-            CAMERA_PERMISSION_CODE
+                activity as MainActivity,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_CODE
         )
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<String?>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_CODE) {
@@ -295,19 +296,19 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 // openScanner();
                 try {
                     IntentIntegrator(activity as MainActivity?).setCaptureActivity(ScannerActivity::class.java)
-                        .initiateScan()
+                            .initiateScan()
                 } catch (e: java.lang.Exception) {
                     showToastMessage(e.message)
                 }
             } else {
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT)
-                    .show()
+                        .show()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ContextCompat.checkSelfPermission(
-                            activity as MainActivity,
-                            Manifest.permission.CAMERA
-                        )
-                        != PackageManager.PERMISSION_GRANTED
+                                    activity as MainActivity,
+                                    Manifest.permission.CAMERA
+                            )
+                            != PackageManager.PERMISSION_GRANTED
                     ) {
                         showMessageOKCancel("You need to allow access permissions") { dialog, which ->
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -322,11 +323,11 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {
         AlertDialog.Builder(activity as MainActivity)
-            .setMessage(message)
-            .setPositiveButton("OK", okListener)
-            .setNegativeButton("Cancel", null)
-            .create()
-            .show()
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -335,7 +336,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         if (result != null) {
             if (result.contents == null || result.contents.isEmpty()) {
                 Toast.makeText(activity as MainActivity?, "You Closed Scanner", Toast.LENGTH_LONG)
-                    .show()
+                        .show()
             } else {
                 if (isNetworkAvailable) {
                     getScanData(result.contents)
@@ -345,28 +346,28 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
         } else {
             Toast.makeText(activity as MainActivity?, "You Closed Scanner", Toast.LENGTH_LONG)
-                .show()
+                    .show()
         }
     }
 
     private fun getScanData(scan_code: String) {
         val scannerCode: String =
-            scan_code.substring(scan_code.lastIndexOf("=") + 1, scan_code.length)
+                scan_code.substring(scan_code.lastIndexOf("=") + 1, scan_code.length)
         Log.e("msg", "" + scannerCode)
         if (scannerCode.isEmpty()) {
             showToastMessage("not scanned")
         } else {
             showDialogs()
             scannerViewModel.scanQrData(
-                Constants.ACCESS_KEY,
-                getPreferLogin(SharedPreferConstant.login_status).toString(),
-                scannerCode,
-                getPreferLogin(SharedPreferConstant.jawan_id).toString(),
-                getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
-                getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
-                date,
-                getPreferLogin(SharedPreferConstant.user_type).toString(),
-                getPreferLogin(SharedPreferConstant.zone_id).toString()
+                    Constants.ACCESS_KEY,
+                    getPreferLogin(SharedPreferConstant.login_status).toString(),
+                    scannerCode,
+                    getPreferLogin(SharedPreferConstant.jawan_id).toString(),
+                    getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
+                    getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
+                    date,
+                    getPreferLogin(SharedPreferConstant.user_type).toString(),
+                    getPreferLogin(SharedPreferConstant.zone_id).toString()
             )
 
         }
@@ -380,14 +381,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 if (checkPermission()) {
                     clearAllPreference()
                     IntentIntegrator(activity as MainActivity?).setCaptureActivity(ScannerActivity::class.java)
-                        .initiateScan()
+                            .initiateScan()
                 } else {
                     requestPermission()
                 }
             } else {
                 clearAllPreference()
                 IntentIntegrator(activity as MainActivity?).setCaptureActivity(ScannerActivity::class.java)
-                    .initiateScan()
+                        .initiateScan()
             }
         }
     }
@@ -430,45 +431,45 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun startLocationUpdates() {
         // Begin by checking if the device has the necessary location settings.
         mSettingsClient!!.checkLocationSettings(mLocationSettingsRequest)
-            .addOnSuccessListener(
-                activity!!,
-                OnSuccessListener { // Log.i(TAG, "All location settings are satisfied.");
-                    if (context != null) {
-                        if (ContextCompat.checkSelfPermission(
-                                context!!,
-                                Manifest.permission.ACCESS_FINE_LOCATION
-                            ) != PackageManager.PERMISSION_GRANTED
-                            && ActivityCompat.checkSelfPermission(
-                                context!!,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            ) != PackageManager.PERMISSION_GRANTED
-                        ) {
-                            return@OnSuccessListener
-                        }
-                    }
-                    mFusedLocationClient!!.requestLocationUpdates(
-                        mLocationRequest,
-                        mLocationCallback,
-                        Looper.myLooper()
-                    )
-                    updateUI()
-                })
-            .addOnFailureListener(activity!!) { e ->
-                val statusCode = (e as ApiException).statusCode
-                when (statusCode) {
-                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                               /*  Log.i(TAG, "Location settings are not satisfied. Attempting to upgrade " +
+                .addOnSuccessListener(
+                        activity!!,
+                        OnSuccessListener { // Log.i(TAG, "All location settings are satisfied.");
+                            if (context != null) {
+                                if (ContextCompat.checkSelfPermission(
+                                                context!!,
+                                                Manifest.permission.ACCESS_FINE_LOCATION
+                                        ) != PackageManager.PERMISSION_GRANTED
+                                        && ActivityCompat.checkSelfPermission(
+                                                context!!,
+                                                Manifest.permission.ACCESS_COARSE_LOCATION
+                                        ) != PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    return@OnSuccessListener
+                                }
+                            }
+                            mFusedLocationClient!!.requestLocationUpdates(
+                                    mLocationRequest,
+                                    mLocationCallback,
+                                    Looper.myLooper()
+                            )
+                            updateUI()
+                        })
+                .addOnFailureListener(activity!!) { e ->
+                    val statusCode = (e as ApiException).statusCode
+                    when (statusCode) {
+                        LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                               /*  Log.i(TAG, "Location settings are not satisfied. Attempting to upgrade " +
                                         "location settings ");*/try {
-                        // Show the dialog by calling startResolutionForResult(), and check the
-                        // result in onActivityResult().
-                        val rae = e as ResolvableApiException
-                        rae.startResolutionForResult(activity, REQUEST_CHECK_SETTINGS)
-                    } catch (sie: SendIntentException) {
-                        // Log.i(TAG, "PendingIntent unable to execute request.");
-                    }
+                            // Show the dialog by calling startResolutionForResult(), and check the
+                            // result in onActivityResult().
+                            val rae = e as ResolvableApiException
+                            rae.startResolutionForResult(activity, REQUEST_CHECK_SETTINGS)
+                        } catch (sie: SendIntentException) {
+                            // Log.i(TAG, "PendingIntent unable to execute request.");
+                        }
 
+                    }
+                    updateUI()
                 }
-                updateUI()
-            }
     }
 
     private fun updateUI() {

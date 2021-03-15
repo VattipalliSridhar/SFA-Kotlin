@@ -76,7 +76,7 @@ public class BinsCustomViewClass extends View {
         txt_paint.setTextSize(canvas_width / 6);
         txt_paint.setTextAlign(Paint.Align.CENTER);
 
-        canvas.drawText("" + /*((int) ((sweepAngle / 360) * 100)) + */(clean_count + "/" + total_count), canvas_width / 2 + canvas_width / 40, canvas_height / 2 + canvas_height / 30, txt_paint);
+        canvas.drawText("" + /*((int) ((sweepAngle / 360) * 100)) + */(total_count), canvas_width / 2 + canvas_width / 40, canvas_height / 2 + canvas_height / 30, txt_paint);
     }
 
     public float getAngle() {

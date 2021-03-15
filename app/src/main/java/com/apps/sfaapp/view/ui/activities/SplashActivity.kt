@@ -40,7 +40,7 @@ class SplashActivity : BaseActivity(), SplashNavigator {
 
     override fun openMainActivity() {
 
-        startActivity(Intent(applicationContext, CommercialActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
 
     }

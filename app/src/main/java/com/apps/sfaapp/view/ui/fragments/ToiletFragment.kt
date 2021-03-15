@@ -106,7 +106,7 @@ class ToiletFragment : BaseFragment(), RadioGroup.OnCheckedChangeListener {
 
                 if(isNetworkAvailable)
                 {
-                    saveCleanData()
+                    //saveCleanData()
                 }
             }
         }
@@ -161,25 +161,29 @@ class ToiletFragment : BaseFragment(), RadioGroup.OnCheckedChangeListener {
 
     }
 
-    private fun saveCleanData() {
+ /*   private fun saveCleanData() {
         showDialogs()
         submitCleanViewModel.saveDataClean(
-            Constants.ACCESS_KEY,
-            getPreferLogin(SharedPreferConstant.login_status).toString(),
-            getPreferLogin(SharedPreferConstant.jawan_id).toString(),
-            toiletId.toString(),
-            getPreferLogin(
-                SharedPreferConstant.ulbid
-            ).toString(),
-            getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
-            getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
-            scannedCode.toString(),
-            dateTime,
-            cleanStatus.toString(),
-            getPreferLogin(SharedPreferConstant.zone_id).toString(),
-            selectedIdsArray
+                Constants.ACCESS_KEY,
+                getPreferLogin(SharedPreferConstant.login_status).toString(),
+                getPreferLogin(SharedPreferConstant.jawan_id).toString(),
+                toiletId.toString(),
+                getPreferLogin(
+                    SharedPreferConstant.ulbid
+                ).toString(),
+                getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
+                getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
+                scannedCode.toString(),
+                dateTime,
+                cleanStatus.toString(),
+                getPreferLogin(SharedPreferConstant.zone_id).toString(),
+                selectedIdsArray,
+                wardId.toString(),
+                roadId.toString(),
+                zoneId.toString(),
+                circleId.toString()
         )
-    }
+    }*/
 
     private fun validation(): Boolean {
         if (binding.radioYes.isChecked || binding.radioNo.isChecked) {
