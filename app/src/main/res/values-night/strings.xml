@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="turn_off_flashlight">FlashLight on</string>
+    <string name="turn_on_flashlight">flashLight off</string>
+    <string name="message">Place a QRcode inside the rectangle to scan it.</string>
+
+
+    <string name="ward">Ward / వార్డు</string>
+    <string name="circle">Circle / సర్కిల్</string>
+    <string name="name_of_the_toilet">Name of the toilet / టాయిలెట్ పేరు</string>
+    <string name="toilet_cleaned">Toilet Cleaned / టాయిలెట్ శుభ్రపరచి ఉందా ?</string>
+    <string name="date">Date</string>
+</resources>

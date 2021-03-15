@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">SFA App</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="turn_off_flashlight">FlashLight on</string>
+    <string name="turn_on_flashlight">flashLight off</string>
+    <string name="message">Place a QRcode inside the rectangle to scan it.</string>
+
+
+    <string name="ward">Ward / వార్డు</string>
+    <string name="circle">Circle / సర్కిల్</string>
+    <string name="name_of_the_toilet">Name of the toilet / టాయిలెట్ పేరు</string>
+    <string name="toilet_cleaned">Toilet Cleaned / టాయిలెట్ శుభ్రపరచి ఉందా ?</string>
+    <string name="date">Date</string>
+
+
+    <string name="commercial_property">Commercial Property / వాణిజ్య సముదాయం</string>
+    <string name="road">Road / రోడ్డు</string>
+
+    <string name="type_of_violation">Type of Violation / ఉల్లంఘన రకం</string>
+    <string name="upload_photo">Upload Photo / ఫోటోను అప్లోడ్ చేయండి</string>
+</resources>
