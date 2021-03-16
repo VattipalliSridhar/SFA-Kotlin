@@ -27,6 +27,7 @@ import com.apps.sfaapp.view.base.BaseActivity
 import com.apps.sfaapp.view.base.Constants
 import com.apps.sfaapp.view.base.SharedPreferConstant
 import com.apps.sfaapp.viewmodel.SubmitViolationViewModel
+import com.apps.sfaapp.viewmodel.SubmitViolationViewModelKt
 import com.apps.sfaapp.viewmodel.ViolationViewModel
 import com.bumptech.glide.Glide
 import com.zxy.tiny.Tiny
@@ -64,6 +65,7 @@ class CommercialActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var violationViewModel: ViolationViewModel
     private lateinit var submitViolationViewModel: SubmitViolationViewModel
+    private lateinit var submitViolationViewModelKt: SubmitViolationViewModelKt
 
     private var violationTypeArray: ArrayList<String> = ArrayList()
     private var violationIdArray: ArrayList<String> = ArrayList()
@@ -75,6 +77,7 @@ class CommercialActivity : BaseActivity(), View.OnClickListener {
 
         violationViewModel = ViewModelProvider(this).get(ViolationViewModel::class.java)
         submitViolationViewModel = ViewModelProvider(this).get(SubmitViolationViewModel::class.java)
+        submitViolationViewModelKt = ViewModelProvider(this).get(SubmitViolationViewModelKt::class.java)
 
         binding.photoClickLayout.setOnClickListener(this)
         binding.backButton.setOnClickListener(this)
@@ -134,12 +137,21 @@ class CommercialActivity : BaseActivity(), View.OnClickListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        submitViolationViewModel.insertModelMutableLiveData.observe(this, Observer {
+        /*submitViolationViewModel.insertModelMutableLiveData.observe(this, Observer {
             if (it.status == 200) {
                 pop(it.bin_name + "\n" + it.message)
             } else {
                 showToastMessage("${it.message}")
             }
+        })*/
+
+        submitViolationViewModelKt.submitCleanModelLiveData.observe(this, Observer {
+            if (it.status == 200) {
+                pop(it.bin_name + "\n" + it.message)
+            } else {
+                showToastMessage("${it.message}")
+            }
+            dismissDialog()
         })
 
     }
@@ -240,7 +252,31 @@ class CommercialActivity : BaseActivity(), View.OnClickListener {
     private val selectedIdsArray: ArrayList<String> = ArrayList()
     private fun saveViolation() {
         showDialog()
-        submitViolationViewModel.saveData(
+        /*submitViolationViewModel.saveData(
+                Constants.ACCESS_KEY,
+                getPreferLogin(SharedPreferConstant.login_status).toString(),
+                getPreferLogin(SharedPreferConstant.jawan_id).toString(),
+                binId.toString(),
+                getPreferLogin(
+                        SharedPreferConstant.ulbid
+                ).toString(),
+                getPreferLogin(SharedPreferConstant.LATTITUDE).toString(),
+                getPreferLogin(SharedPreferConstant.LONGITUDE).toString(),
+                scannedCode.toString(),
+                dateTime,
+                "",
+                getPreferLogin(SharedPreferConstant.zone_id).toString(),
+                selectedIdsArray,
+                wardId.toString(),
+                roadId.toString(),
+                zoneId.toString(),
+                circleId.toString(),
+                getPreference(SharedPreferConstant.IMAGE_PATH).toString(),
+                "2",
+                violationId.toString()
+        )*/
+
+        submitViolationViewModelKt.saveData(
                 Constants.ACCESS_KEY,
                 getPreferLogin(SharedPreferConstant.login_status).toString(),
                 getPreferLogin(SharedPreferConstant.jawan_id).toString(),

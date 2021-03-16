@@ -4,7 +4,6 @@ package com.apps.sfaapp.view.api
 import com.apps.sfaapp.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -93,10 +92,9 @@ interface ApiInterface {
             @Part("circle_id") circle_id: RequestBody,
             @Part("road_id") road_id: RequestBody,
             @Part("cat_type") cat_type: RequestBody,
-            @Part("checklist2[]") checkData: ArrayList<RequestBody>,
-            @Part photo_file: MultipartBody.Part,
             @Part("ViolationId") violationId: RequestBody,
-            ): Response<SubmitCleanModel>
+            @Part fileToUpload: MultipartBody.Part
+    ): Response<SubmitCleanModel>
 
 
     /* @Multipart
