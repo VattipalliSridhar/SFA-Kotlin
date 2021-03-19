@@ -7,12 +7,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class CheckListRepository {
-
-
-
-
     suspend fun getCheckList(accessKey: String, loginStatus: String): Response<CheckListModel> {
-
         return withContext(Dispatchers.IO){
             RetrofitClient.apiInterface.checkList(accessKey,loginStatus)
         }

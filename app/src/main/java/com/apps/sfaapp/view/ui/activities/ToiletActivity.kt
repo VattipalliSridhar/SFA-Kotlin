@@ -70,8 +70,12 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
 
         binding.etToilet.setText(toiletLocation)
+        binding.etToilet.isEnabled = false
+
         binding.etCircle.setText(circleName)
+        binding.etCircle.isEnabled = false
         binding.etWard.setText(wardName)
+        binding.etWard.isEnabled = false
 
         binding.backButton.setOnClickListener {
             finish()
@@ -86,7 +90,9 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
         binding.radioGroup.setOnCheckedChangeListener(this)
 
-
+        if (isNetworkAvailable()) {
+            getCheckList()
+        }
 
         checkListViewModel.checkListViewModelLiveData.observe(this, Observer {
             if (it.status == 200) {
@@ -220,18 +226,20 @@ class ToiletActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         if (isChecked) {
             if (checkedRadioButton.text.toString().equals("yes", ignoreCase = true)) {
                 binding.recyclerChecklist.visibility = View.VISIBLE
-                arrayList.clear()
+                //arrayList.clear()
                 cleanStatus = "1"
-                if (isNetworkAvailable()) {
-                    getCheckList()
-                }
+
+                /* if (isNetworkAvailable()) {
+                   getCheckList()
+               }*/
+
             } else if (checkedRadioButton.text.toString().equals("no", ignoreCase = true)) {
                 binding.recyclerChecklist.visibility = View.VISIBLE
                 cleanStatus = "2"
-                arrayList.clear()
-                if (isNetworkAvailable()) {
+                //arrayList.clear()
+               /* if (isNetworkAvailable()) {
                     getCheckList()
-                }
+                }*/
             }
         }
     }

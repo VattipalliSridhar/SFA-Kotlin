@@ -7,10 +7,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class ViolationListRepository {
-
-
     suspend fun getData(accessKey: String, loginStatus: String): Response<ViolationModel> {
-
         return withContext(Dispatchers.IO){
             RetrofitClient.apiInterface.violationList(accessKey,loginStatus)
         }

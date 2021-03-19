@@ -239,7 +239,7 @@
                         android:layout_marginTop="@dimen/_15sdp"
                         android:nestedScrollingEnabled="false"
                         android:scrollbars="none"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
 
                 </LinearLayout>

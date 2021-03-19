@@ -109,9 +109,9 @@ open class BaseActivity : AppCompatActivity() {
         return preferences.getString(TAG, "")
     }
 
-    open fun clearAllPrefernces() {
+    open fun clearAllPreferences() {
             val editor = this.applicationContext.getSharedPreferences(
-                SharedPreferConstant.MY_PREFERENCES,
+                SharedPreferConstant.LOGIN_PREFERENCES,
                 MODE_PRIVATE
             ).edit()
             editor.clear()

@@ -22,7 +22,6 @@ class CheckListViewModel : ViewModel() {
 
 
     fun getCheckListData(accessKey: String, loginStatus: String) {
-
         viewModelScope.launch {
             response = checkListRepository.getCheckList(accessKey,loginStatus)
             if(response.isSuccessful)

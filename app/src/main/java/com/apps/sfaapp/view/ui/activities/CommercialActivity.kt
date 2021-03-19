@@ -26,6 +26,7 @@ import com.apps.sfaapp.databinding.ActivityCommercialBinding
 import com.apps.sfaapp.view.base.BaseActivity
 import com.apps.sfaapp.view.base.Constants
 import com.apps.sfaapp.view.base.SharedPreferConstant
+import com.apps.sfaapp.view.ui.connectivity.ConnectivityLiveData
 import com.apps.sfaapp.viewmodel.SubmitViolationViewModel
 import com.apps.sfaapp.viewmodel.SubmitViolationViewModelKt
 import com.apps.sfaapp.viewmodel.ViolationViewModel
@@ -79,6 +80,8 @@ class CommercialActivity : BaseActivity(), View.OnClickListener {
         submitViolationViewModel = ViewModelProvider(this).get(SubmitViolationViewModel::class.java)
         submitViolationViewModelKt = ViewModelProvider(this).get(SubmitViolationViewModelKt::class.java)
 
+
+
         binding.photoClickLayout.setOnClickListener(this)
         binding.backButton.setOnClickListener(this)
 
@@ -98,9 +101,13 @@ class CommercialActivity : BaseActivity(), View.OnClickListener {
         zoneId = intent.getStringExtra("zone_id")
 
         binding.etCircle.setText(circleName)
+        binding.etCircle.isEnabled = false
         binding.etCommercial.setText(binLocation)
+        binding.etCommercial.isEnabled = false
         binding.etWard.setText(wardName)
+        binding.etWard.isEnabled = false
         binding.etRoad.setText(roadName)
+        binding.etRoad.isEnabled = false
         binding.formSubBut.setOnClickListener(this)
 
         if (isNetworkAvailable()) {

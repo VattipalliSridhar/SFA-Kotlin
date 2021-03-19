@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
 import android.widget.Toast
@@ -20,6 +21,7 @@ import com.apps.sfaapp.view.base.Constants
 import com.apps.sfaapp.view.base.SharedPreferConstant
 import com.apps.sfaapp.view.ui.navigators.LoginNavigator
 import com.apps.sfaapp.viewmodel.LoginViewModel
+import kotlin.system.exitProcess
 
 class LoginActivity : BaseActivity(), LoginNavigator {
 
@@ -153,6 +155,26 @@ class LoginActivity : BaseActivity(), LoginNavigator {
         builder.setNegativeButton("Exit"
         ) { dialog, which -> dialog.dismiss() }
         builder.show()
+    }
+
+
+    override fun onBackPressed() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        builder.setTitle("Confirm")
+        builder.setMessage("Are you sure you want to exit from the application?")
+        builder.setPositiveButton("Yes") { dialog, which ->
+            dialog.dismiss()
+            clearAllPreferences()
+            moveTaskToBack(true)
+            Process.killProcess(Process.myPid())
+            exitProcess(1)
+        }
+        builder.setNegativeButton("No") { dialog, which -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.show()
+
     }
 
 

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -18,7 +20,7 @@ import com.apps.sfaapp.view.ui.fragments.HomeFragment
 import com.apps.sfaapp.view.ui.fragments.StatusFragment
 
 
-class MainActivity : BaseActivity(),RecyclerMenuAdapter.OnItemClickListener {
+class MainActivity : BaseActivity(), RecyclerMenuAdapter.OnItemClickListener {
 
 
     lateinit var binding: ActivityMainBinding
@@ -48,10 +50,9 @@ class MainActivity : BaseActivity(),RecyclerMenuAdapter.OnItemClickListener {
         recyclerMenuAdapter = RecyclerMenuAdapter(applicationContext, menuModel, this)
         binding.recyclerview.adapter = recyclerMenuAdapter
 
-
-
-
-
+        binding.menuIcon.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
 
 
     }
@@ -94,28 +95,23 @@ class MainActivity : BaseActivity(),RecyclerMenuAdapter.OnItemClickListener {
     }
 
 
-
-
     override fun onItemClick(position: Int) {
         binding.drawerLayout.closeDrawers()
 
-        if(position == 0)
-        {
+        if (position == 0) {
             this@MainActivity.viewModelStore.clear()
             removeAllFragmentsInBackStack()
             defaultFragment()
         }
-        if(position == 1)
-        {
+        if (position == 1) {
             val fragment1: Fragment = StatusFragment()
             val beginTransaction1 = supportFragmentManager.beginTransaction()
             beginTransaction1.replace(R.id.frame_layout, fragment1)
             beginTransaction1.addToBackStack(null)
             beginTransaction1.commitAllowingStateLoss()
         }
-        if(position == 2)
-        {
-
+        if (position == 2) {
+            Logout()
         }
     }
 
@@ -136,14 +132,31 @@ class MainActivity : BaseActivity(),RecyclerMenuAdapter.OnItemClickListener {
 
     fun qrImg(s: String) {
 
-        if(s == "Status")
-        {
+        if (s == "Status") {
             binding.menuScan.visibility = View.GONE
 
-        }else{
+        } else {
             binding.menuScan.visibility = View.VISIBLE
         }
 
+    }
+
+
+    private fun Logout() {
+        val builder = AlertDialog.Builder(this@MainActivity)
+        builder.setIcon(R.mipmap.ic_launcher)
+        builder.setTitle("Confirm")
+        builder.setMessage("Are you sure you want to logout from the application?")
+        builder.setPositiveButton("Yes") { dialog, which ->
+            clearAllPreferences()
+            val navigatorLogin = Intent(this@MainActivity, LoginActivity::class.java)
+            navigatorLogin.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(navigatorLogin)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialog, which -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 
